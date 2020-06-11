@@ -8,4 +8,5 @@ terraform {
 
 inputs = {
   env = "dev"
+  ip_range = "10.10.10.0/24"
 }

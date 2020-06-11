@@ -7,5 +7,5 @@ terraform {
 }
 
 inputs = {
-  env = "dev"
+  env = "prod"
 }

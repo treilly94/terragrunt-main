@@ -6,6 +6,11 @@ terraform {
   source = "git::git@github.com:treilly94/terragrunt-modules.git//app"
 }
 
+dependency "vpc" {
+  config_path = "../vpc"
+}
+
 inputs = {
   env = "dev"
+  vpc_uuid = dependency.vpc.outputs.vpc_id
 }

@@ -6,6 +6,10 @@ terraform {
   source  = "git::github.com/terraform-aws-modules/terraform-aws-vpc?ref=v2.64.0"
 }
 
+locals {
+    tags = yamldecode(file(find_in_parent_folders("tags.yml")))
+}
+
 inputs = {
   name = "test"
   cidr = "10.0.0.0/16"
@@ -22,8 +26,5 @@ inputs = {
     "10.0.3.0/24"
     ]
 
-  tags = {
-    Terraform = "true"
-    Environment = "dev"
-  }
+  tags = local.tags
 }

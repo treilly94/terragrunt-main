@@ -7,7 +7,14 @@ terraform {
 }
 
 locals {
-    tags = yamldecode(file(find_in_parent_folders("tags.yml")))
+  global_locals = yamldecode(file(find_in_parent_folders("global.yml")))
+  env_locals = yamldecode(file(find_in_parent_folders("env.yml")))
+  region_locals = yamldecode(file(find_in_parent_folders("region.yml")))
+
+  tags = merge(
+    local.global_locals.tags, 
+    local.env_locals.tags
+    )
 }
 
 inputs = {

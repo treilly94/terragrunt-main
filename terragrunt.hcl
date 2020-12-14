@@ -5,8 +5,8 @@ remote_state {
     if_exists = "overwrite"
   }
   config = {
-    resource_group_name  = "terraform"
-    storage_account_name = "pandahorse"
+    resource_group_name  = "terragrunt"
+    storage_account_name = "terragruntstate"
     container_name       = "tfstate"
     key                  = "${path_relative_to_include()}/terraform.tfstate"
   }

@@ -22,7 +22,7 @@ locals {
 }
 
 inputs = {
-  name                   = "test"
+  name                   = "${local.region_locals.prefix}-test"
   instance_count         = 1
 
   ami                    = local.region_locals.ami

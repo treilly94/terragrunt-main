@@ -18,7 +18,7 @@ locals {
 }
 
 inputs = {
-  name = "test"
+  name = "${local.region_locals.prefix}-test"
   cidr = "10.0.0.0/16"
 
   azs             = [

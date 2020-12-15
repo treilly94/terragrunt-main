@@ -7,18 +7,18 @@ terraform {
 }
 
 locals {
-  global_locals = yamldecode(file(find_in_parent_folders("global.yml")))
-  env_locals = yamldecode(file(find_in_parent_folders("env.yml")))
-  region_locals = yamldecode(file(find_in_parent_folders("region.yml")))
+  global_vars = read_terragrunt_config(find_in_parent_folders("global.hcl"))
+  env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
   tags = merge(
-    local.global_locals.tags, 
-    local.env_locals.tags
+    local.global_vars.locals.tags, 
+    local.env_vars.locals.tags
     )
 }
 
 inputs = {
-  name = "${local.region_locals.prefix}-test"
+  name = "${local.region_vars.locals.prefix}-test"
   cidr = "10.0.0.0/16"
 
   azs             = [

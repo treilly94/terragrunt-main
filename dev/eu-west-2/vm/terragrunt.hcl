@@ -11,21 +11,21 @@ dependency "vpc" {
 }
 
 locals {
-  global_locals = yamldecode(file(find_in_parent_folders("global.yml")))
-  env_locals = yamldecode(file(find_in_parent_folders("env.yml")))
-  region_locals = yamldecode(file(find_in_parent_folders("region.yml")))
+  global_vars = read_terragrunt_config(find_in_parent_folders("global.hcl"))
+  env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
   tags = merge(
-    local.global_locals.tags, 
-    local.env_locals.tags
+    local.global_vars.locals.tags, 
+    local.env_vars.locals.tags
     )
 }
 
 inputs = {
-  name                   = "${local.region_locals.prefix}-test"
+  name                   = "${local.region_vars.locals.prefix}-test"
   instance_count         = 1
 
-  ami                    = local.region_locals.ami
+  ami                    = local.region_vars.locals.ami
   instance_type          = "t3.micro"
   monitoring             = true
   vpc_security_group_ids = [dependency.vpc.outputs.default_security_group_id]
